@@ -34,41 +34,42 @@ const BarCodeScanner = () => {
         "https://snapsdeal-backend.herokuapp.com/items"
       );
       if (data) {
-        // console.log(data.items);
-        if (!itemsData.includes(barCodeData)) {
-          let filterdItems = data.items.filter((item) => {
-            return (
-              Object.values(item.customAttributeValues)[0].stringValue ===
-              barCodeData
-            );
-          });
+        // if (!itemsData.includes(barCodeData)) {
+        let filterdItems = data.items.filter((item) => {
+          return (
+            Object.values(item.customAttributeValues)[0].stringValue ===
+            barCodeData
+          );
+        });
 
-          setItemsData((prev) => [...prev, filterdItems]);
+        setItemsData((prev) => [...prev, filterdItems]);
 
-          filterdItems.map((item) => {
-            const getFormmatedData = {
-              id: item.id,
-              name: item.itemData.name,
-              amount:
-                item.itemData.variations[0].itemVariationData.priceMoney.amount,
-              currency:
-                item.itemData.variations[0].itemVariationData.priceMoney
-                  .currency,
-              qty: qty,
-            };
-            const bool = cartItems.filter((item1) => item1.id === item.id);
-            if (!bool) {
-              dispatch(addToCart(getFormmatedData));
-            } else if (cartItems.length === 0) {
-              dispatch(addToCart(getFormmatedData));
-            }
-          });
-        }
+        filterdItems.map((item) => {
+          const getFormmatedData = {
+            id: item.id,
+            name: item.itemData.name,
+            amount:
+              item.itemData.variations[0].itemVariationData.priceMoney.amount,
+            currency:
+              item.itemData.variations[0].itemVariationData.priceMoney.currency,
+            qty: qty,
+          };
+          const bool = cartItems.filter((item1) => item1.id === item.id);
+          console.log(bool);
+          if (bool.length === 0) {
+            dispatch(addToCart(getFormmatedData));
+          } else if (cartItems.length === 0) {
+            dispatch(addToCart(getFormmatedData));
+          }
+        });
       }
+      // }
     } catch (error) {
       console.log(error);
     }
   };
+
+  // console.log(itemsData);
 
   useEffect(() => {
     handleApi();
