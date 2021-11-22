@@ -72,7 +72,7 @@ const BarCodeScanner = () => {
 
   useEffect(() => {
     handleApi();
-  }, []);
+  }, [barCodeData]);
 
   let total = 0;
 
