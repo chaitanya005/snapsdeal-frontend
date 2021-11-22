@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "react-router";
 
 const BarCodeScanner = () => {
-  const [barCodeData, setBarCodeData] = useState("9788122200201");
+  const [barCodeData, setBarCodeData] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [itemsData, setItemsData] = useState([]);
   const [qty, setQty] = useState(1);
@@ -37,7 +37,10 @@ const BarCodeScanner = () => {
         // console.log(data.items);
         if (!itemsData.includes(barCodeData)) {
           let filterdItems = data.items.filter((item) => {
-            return Object.values(item.customAttributeValues)[0].stringValue;
+            return (
+              Object.values(item.customAttributeValues)[0].stringValue ===
+              barCodeData
+            );
           });
 
           setItemsData((prev) => [...prev, filterdItems]);
