@@ -30,7 +30,9 @@ const BarCodeScanner = () => {
 
   const handleApi = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/items");
+      const { data } = await axios.get(
+        "https://snapsdeal-backend.herokuapp.com/items"
+      );
       if (data) {
         // console.log(data.items);
         if (!itemsData.includes(barCodeData)) {
@@ -77,9 +79,12 @@ const BarCodeScanner = () => {
 
   const handlePlaceOrder = async () => {
     const cartItemsData = { cartItems, total, name: userInfo["name"] };
-    const { data } = await axios.post("http://localhost:8000/create-order", {
-      cartItemsData,
-    });
+    const { data } = await axios.post(
+      "https://snapsdeal-backend.herokuapp.com/create-order",
+      {
+        cartItemsData,
+      }
+    );
     navigate("/gpay");
     console.log(data);
   };

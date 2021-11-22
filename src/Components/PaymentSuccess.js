@@ -14,9 +14,12 @@ const PaymentSuccess = (props) => {
 
   const getOrderDetails = async (orderId) => {
     console.log(orderId);
-    const { data } = await axios.post("http://localhost:8000/order-details", {
-      orderId,
-    });
+    const { data } = await axios.post(
+      "https://snapsdeal-backend.herokuapp.com/order-details",
+      {
+        orderId,
+      }
+    );
     console.log(data);
     setOrderDetails(data.order);
   };

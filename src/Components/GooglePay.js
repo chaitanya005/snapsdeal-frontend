@@ -43,13 +43,16 @@ const GooglePay = () => {
       sourceId: token,
     });
 
-    const paymentResponse = await fetch("http://localhost:8000/payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    });
+    const paymentResponse = await fetch(
+      "https://snapsdeal-backend.herokuapp.com/payment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }
+    );
 
     if (paymentResponse.ok) {
       console.log(paymentResponse);
